@@ -2,25 +2,35 @@ name: CI Pipeline
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
+
     runs-on: ubuntu-latest
 
     steps:
-      - use: actions/checkout@v3
 
-      - use: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '22'
-      
-      - run: npm install
+          cache: 'npm'
 
-      - run: npm run lint
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run test
+      - name: Lint code
+        run: npm run lint
 
-      - run: npm run test:e2e
+      - name: Run unit tests
+        run: npm run test
 
-      - run: npm run build 
+      - name: Run e2e tests
+        run: npm run test:e2e
+
+      - name: Build application
+        run: npm run build
