@@ -1,23 +1,26 @@
 name: CI Pipeline
+
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - use: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - use: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '22'
+      
+      - run: npm install
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm run lint
 
-      - name: Run tests
-        run: npm test
+      - run: npm run test
+
+      - run: npm run test:e2e
+
+      - run: npm run build 
