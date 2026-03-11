@@ -2,17 +2,25 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiOperation, ApiResponse, ApiTags, SwaggerModule, ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 @Controller('user')
+@ApiTags('Usuário')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiOperation({ summary:"Criação de um novo usuário"})
+  @ApiResponse({ status:201, description:"Usuário criado com sucesso!"})
+  @ApiResponse({ status:400, description:"Dados invalidos fornecidos"})
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
+  @ApiOperation({ summary:""})
+  @ApiResponse({})
+  @ApiResponse({})
   findAll() {
     return this.userService.findAll();
   }
