@@ -1,0 +1,26 @@
+name: Release Pipeline
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
