@@ -12,22 +12,22 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const user = createUserDto;
-    return this.userRepository.create(user);  
+    return await this.userRepository.create(user);  
   }
 
   async findAll() {
-    return this.userRepository.findAll();
+    return await this.userRepository.findAll();
   }
 
   async findOne(id: number) {
-    return this.userRepository.findOne(id);
+    return await this.userRepository.findOne(id);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto);
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number) {
-    return this.userRepository.remove(id);
+    return await this.userRepository.remove(id);
   }
 }
